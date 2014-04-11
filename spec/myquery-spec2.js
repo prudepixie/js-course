@@ -65,7 +65,6 @@ describe("myQuery", function () {
     it("iterates through all selected elements", function() {
       var testResult = [];
       $('.button').each(function (elem, i) {
-
         testResult.push(elem.className + ' ' + i);
       });
 
@@ -76,51 +75,76 @@ describe("myQuery", function () {
   })
 
   describe("Show and Hide", function () {
-    it ("can hide", function(){
-
-     $('img').hide()
-      var hidden = $('img').get(0).style.display
-      expect(hidden).toEqual("none");
+    // TODO: Write tests for .show() and .hide()
+    it("hides an element", function() {
+      var button = $('.button').hide();
+      expect($('.button').get(0).style.display).toEqual("none");
+      expect($('.button').get(1).style.display).toEqual("none");
     });
 
-    it("can show", function(){
-      $('img').show()
-      var shown = $('img').get(0).style.display
-      expect(shown).toEqual("block");
-    })
-
+    it("shows an element", function() {
+      $('.button').hide();
+      var button = $('.button').show();
+      expect($('.button').get(0).style.display).toEqual("block");
+      expect($('.button').get(1).style.display).toEqual("block");
+    });
   });
 
   describe("addClass", function () {
-    it("adds a class to the element", function(){
-      var image = $('img')
-      image.addClass("intro")
+    // TODO: Write tests for addClass
+    // HINT: Test using .toMatch() like the selector test
+    it("adds a class to an element", function() {
+      $('.button').addClass('fuzzles');
+      expect($('.button').get(0).className).toMatch(/fuzzles/);
+    });
 
-      expect(image.get(0).className).toMatch(/intro/);
-
+    it("does not allow two classes of the same name on an element", function () {
+      $('.button').addClass('pancake');
+      $('.button').addClass('pancake');
+      expect($('.button').get(0).className).not.toMatch(/pancake pancake/);
     })
   });
 
   describe("Modifying CSS", function () {
 
     it("can set a single property", function() {
-
+      // Ensure they're not already hidden
       expect( $('.button').get(0).style.display ).toEqual('');
       expect( $('.button').get(1).style.display ).toEqual('');
 
+      // Now make sure displays have updated
       $('.button').css('display', 'none');
       expect( $('.button').get(0).style.display ).toEqual('none');
       expect( $('.button').get(1).style.display ).toEqual('none');
     });
 
+    it("can set multiple properties in one call", function() {
+      $('.button').css({"border": "1px solid red", "height": "100px"});
 
-    it("can set multiple properties in one call", function(){
-      $('.button').css({'display':'none','background':'black'})
-     expect($('.button').get(0).style.display).toEqual('none')
-     expect($('.button').get(0).style.background).toEqual('black')
-     });
+      expect( $('.button').get(0).style.border ).toEqual("1px solid red");
+      expect( $('.button').get(0).style.height ).toEqual("100px");
 
+      expect( $('.button').get(1).style.border ).toEqual("1px solid red");
+      expect( $('.button').get(1).style.height ).toEqual("100px");
+    });
+  });
 
+  describe("Chaining", function () {
+    it("can chain multiple calls", function() {
+      $('.button').show().hide().show().hide();
+      expect($('.button').get(0).style.display).toEqual("none");
+      expect($('.button').get(1).style.display).toEqual("none");
+    });
+  });
+
+  describe("Software Design Requirements", function () {
+    it("does not use jQuery", function() {
+      expect('' + $).not.toMatch(/jQuery/);
+    });
+
+    it("does not use querySelector or querySelectorAll", function() {
+      expect('' + $).not.toMatch(/querySelector(All)?/);
+    });
   });
 
 });
