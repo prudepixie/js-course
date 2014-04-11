@@ -12,12 +12,16 @@
      for(var i = 0; i < elems.length; i++) {
        func(elems[i], i);
      }
+      return this;
+
    };
 
    this.hide = function(){
     for(var i=0; i<elems.length; i++){
       elems[i].style.display= "none";
     }
+     return this;
+
    };
 
    this.show = function(){
