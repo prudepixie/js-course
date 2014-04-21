@@ -1,14 +1,37 @@
 <html>
 <head>
-  <title>Robin Starter</title>
-  <link rel="stylesheet" type="text/css" href="css/style.css" />
+ <title>Robin Starter</title>
+ <style type="text/css">
+   #templates { display: none; }
+   #store .item {
+     background: #ddd;
+     padding: 1px 10px;
+     margin-bottom: 10px;
+   }
+ </style>
 </head>
 <body>
 
 <!-- HTML -->
+<div id="store">
+ <div class="item">
+   <p>Apple - $1</p>
+ </div>
+ <div class="item">
+   <p>Banana - $2</p>
+ </div>
+ <div class="item">
+   <p>Carrot - $4</p>
+ </div>
+</div>
 
 <div id="templates">
-  <!-- TEMPLATES -->
+ <!-- TEMPLATES -->
+ <script class="item" type="text/template">
+   <div class="item">
+   <p>{{name}} - ${{price}}</p>
+   </div>
+ </script>
 </div>
 
 <script src="vendor/js/jquery-1.10.2.min.js"></script>
